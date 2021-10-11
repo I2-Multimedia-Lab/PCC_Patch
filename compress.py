@@ -24,8 +24,6 @@ parser.add_argument('glob_input_path', help='Point clouds glob pattern to be com
 parser.add_argument('compressed_path', help='Compressed file saving directory.')
 parser.add_argument('--load_scale', type=int, help='Input point cloud coordinate scale. [0, load_scale]', default=1)
 parser.add_argument('--ALPHA', type=int, help='The factor of patch coverage ratio.', default=2)
-#parser.add_argument('--K', type=int, help='Number of points in each patch.', default=128)
-#parser.add_argument('--d', type=int, help='Bottleneck size.', default=16)
 
 args = parser.parse_args()
 

@@ -1,3 +1,5 @@
+# This script is a slightly modified version of yanx27's ShapeNetDataLoader.py
+# original code: https://github.com/yanx27/Pointnet_Pointnet2_pytorch/blob/e365b9f7b9c3d7d6444278d92e298e3f078794e1/data_utils/ShapeNetDataLoader.py
 # *_*coding:utf-8 *_*
 import os
 import json

@@ -64,7 +64,7 @@ python ./decompress.py './model/trained_128_16' './data/ModelNet40_pc_8192_compr
 
 ## Evaluation
 
-The Evaluation process uses the same software `geo_dist` as in [Quach's code](https://github.com/mauriceqch/pcc_geo_cnn), and it can be retrieved at https://github.com/mauriceqch/geo_dist. We use `eval.py` to measure reconstruction quality and check the bitrate of the compressed file.
+The Evaluation process uses the same software `geo_dist` as in [Quach's code](https://github.com/mauriceqch/pcc_geo_cnn). We use `eval.py` to measure reconstruction quality and check the bitrate of the compressed file.
 
 ```
 python ./eval.py ../geo_dist/build/pc_error './data/ModelNet40_pc_8192/**/test/*.ply' './data/ModelNet40_pc_8192_compressed_128_16' './data/ModelNet40_pc_8192_decompressed_128_16' './eval/ModelNet40_128_16.csv'

@@ -14,8 +14,8 @@ import pc_kit
 import pc_io
 
 parser = argparse.ArgumentParser(
-    prog='compress.py',
-    description='Compress Point Clouds',
+    prog='decompress.py',
+    description='Decompress Point Clouds',
     formatter_class=argparse.ArgumentDefaultsHelpFormatter
 )
 

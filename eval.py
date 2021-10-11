@@ -9,8 +9,8 @@ from pyntcloud import PyntCloud
 
 import pc_io
 parser = argparse.ArgumentParser(
-    prog='compress.py',
-    description='Compress Point Clouds',
+    prog='eval.py',
+    description='Eval decompressed point clouds PSNR and bitrate.',
     formatter_class=argparse.ArgumentDefaultsHelpFormatter
 )
 

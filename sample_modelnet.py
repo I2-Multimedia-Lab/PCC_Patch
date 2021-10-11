@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-
+# This script is a slightly modified version of Quach's mesh_to_pc.py
+# original code: https://github.com/mauriceqch/pcc_geo_cnn/blob/master/src/mesh_to_pc.py
 ################################################################################
 ### Init
 ################################################################################

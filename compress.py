@@ -80,14 +80,8 @@ with torch.no_grad():
         # SAVE AS FILE
         #sampled_xyz = np.round(sampled_xyz.squeeze(0).cpu().numpy() * 255).astype(np.uint8)
         sampled_xyz = (sampled_xyz.squeeze(0).cpu().numpy()).astype(np.float16)
-        #print(sampled_xyz.shape)
         latent_quantized = latent_quantized.cpu().numpy().astype(np.int8)
-        #print(latent_quantized.shape)
+        
         np.savez_compressed(os.path.join(args.compressed_path, filenames[i]), sampled=sampled_xyz, latent=latent_quantized)
-
-        #print(latent_quantized)
-        #print(1<<8)
-
-        #np.save(os.path.join(args.compressed_path, filenames[i] + '.npz'), latent_quantized)
         subprocess.call('xz -k -9 ' + os.path.join(args.compressed_path, filenames[i] + '.npz'), shell=True)
 

@@ -56,6 +56,15 @@ class get_model(nn.Module):
 
         return new_xyz, bpp
 
+    def get_pmf(self, device='cuda'):
+        L = 99  # get cdf [-L, ..., L-1], total L*2 numbers
+        pmf = torch.zeros(1, self.d, L*2).to(device)
+        for l in range(-L, L):
+            z = torch.ones((1, self.d)).to(device) * l
+            pmf[0, :, l+L] = (self.be(z + 0.5) - self.be(z - 0.5))[0, :]
+        #print(pmf.shape)
+        return pmf
+
 
 class get_loss(nn.Module):
     def __init__(self):

@@ -10,10 +10,10 @@ class Bitparm(nn.Module):
     def __init__(self, channel, final=False):
         super(Bitparm, self).__init__()
         self.final = final
-        self.h = nn.Parameter(torch.nn.init.normal_(torch.empty(channel).view(1, -1, 1, 1), 0, 0.01))
-        self.b = nn.Parameter(torch.nn.init.normal_(torch.empty(channel).view(1, -1, 1, 1), 0, 0.01))
+        self.h = nn.Parameter(torch.nn.init.normal_(torch.empty(channel).view(1, -1), 0, 0.01))
+        self.b = nn.Parameter(torch.nn.init.normal_(torch.empty(channel).view(1, -1), 0, 0.01))
         if not final:
-            self.a = nn.Parameter(torch.nn.init.normal_(torch.empty(channel).view(1, -1, 1, 1), 0, 0.01))
+            self.a = nn.Parameter(torch.nn.init.normal_(torch.empty(channel).view(1, -1), 0, 0.01))
         else:
             self.a = None
 

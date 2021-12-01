@@ -8,6 +8,7 @@ from tqdm import tqdm
 import torch
 import torch.utils.data as Data
 from pytorch3d.ops.knn import _KNN, knn_gather, knn_points
+import torchac
 
 import AE
 import pc_kit
@@ -45,6 +46,20 @@ def KNN_Patching(batch_x, sampled_xyz, K):
     x_patches = grouped_xyz.view(-1, K, 3)
     return x_patches
 
+def pmf_to_cdf(pmf):
+    cdf = pmf.cumsum(dim=-1)
+    #print(cdf.shape)
+    spatial_dimensions = pmf.shape[:-1] + (1,)
+    zeros = torch.zeros(spatial_dimensions, dtype=pmf.dtype, device=pmf.device)
+    cdf_with_0 = torch.cat([zeros, cdf], dim=-1)
+    # On GPU, softmax followed by cumsum can lead to the final value being 
+    # slightly bigger than 1, so we clamp.
+    cdf_with_0 = cdf_with_0.clamp(max=1.)
+    return cdf_with_0
+
+pmf = ae.get_pmf('cuda')
+cdf = pmf_to_cdf(pmf)
+
 # DO THE COMPRESS
 with torch.no_grad():
     for i in tqdm(range(filenames.shape[0])):
@@ -76,10 +91,11 @@ with torch.no_grad():
         latent_quantized = torch.round(latent)
         
         # SAVE AS FILE
-        #sampled_xyz = np.round(sampled_xyz.squeeze(0).cpu().numpy() * 255).astype(np.uint8)
+        latent_quantized = latent_quantized.to(torch.int16) + 99
+        byte_stream = torchac.encode_float_cdf(cdf.repeat((S, 1, 1)).cpu(), latent_quantized.cpu(), check_input_bounds=True)
+        with open(os.path.join(args.compressed_path, filenames[i] + '.p.bin'), 'wb') as fout:
+            fout.write(byte_stream)
+
         sampled_xyz = (sampled_xyz.squeeze(0).cpu().numpy()).astype(np.float16)
-        latent_quantized = latent_quantized.cpu().numpy().astype(np.int8)
-        
-        np.savez_compressed(os.path.join(args.compressed_path, filenames[i]), sampled=sampled_xyz, latent=latent_quantized)
-        subprocess.call('xz -k -9 ' + os.path.join(args.compressed_path, filenames[i] + '.npz'), shell=True)
+        np.savez_compressed(os.path.join(args.compressed_path, filenames[i] + '.s.npz'), sampled=sampled_xyz)
 

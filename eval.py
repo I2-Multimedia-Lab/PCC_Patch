@@ -53,7 +53,8 @@ ipt_files, p2pointPSNRs, p2planePSNRs, n_points_inputs, n_points_outputs, bpps =
 print('Evaluating...')
 for i in tqdm(range(len(filenames))):
     input_f = files[i]
-    comp_f = os.path.join(args.compressed_path, filenames[i] + '.npz')
+    comp_s_f = os.path.join(args.compressed_path, filenames[i] + '.s.npz')
+    comp_p_f = os.path.join(args.compressed_path, filenames[i] + '.p.bin')
     decomp_f = os.path.join(args.decompressed_path, filenames[i] + '.dec.ply')
 
     if not os.path.exists(decomp_f):
@@ -70,7 +71,7 @@ for i in tqdm(range(len(filenames))):
     n_points_inputs.append(n_points_input)
     n_points_outputs.append(n_points_output)
     # GET BPP
-    bpp = get_file_size_in_bits(comp_f + '.xz') / n_points_input
+    bpp = (get_file_size_in_bits(comp_s_f) + get_file_size_in_bits(comp_p_f)) / n_points_input
     bpps.append(bpp)
 
 # SAVE AS AN EXCEL .csv

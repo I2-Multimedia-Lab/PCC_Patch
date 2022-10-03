@@ -97,5 +97,7 @@ with torch.no_grad():
             fout.write(byte_stream)
 
         sampled_xyz = (sampled_xyz.squeeze(0).cpu().numpy()).astype(np.float16)
-        np.savez_compressed(os.path.join(args.compressed_path, filenames[i] + '.s.npz'), sampled=sampled_xyz)
+        # np.savez_compressed(os.path.join(args.compressed_path, filenames[i] + '.s.npz'), sampled=sampled_xyz)
+        sampled_xyz.tofile(os.path.join(args.compressed_path, filenames[i] + '.s.bin'))
 
+        np.array([sampled_xyz.shape[0]]).astype(np.uint16).tofile(os.path.join(args.compressed_path, filenames[i] + '.h.bin'))

@@ -1,4 +1,5 @@
 import os
+from random import sample
 import time
 import argparse
 from glob import glob
@@ -32,7 +33,7 @@ if not os.path.exists(args.decompressed_path):
     os.makedirs(args.decompressed_path)
 
 # GET FILENAME FROM COMPRESSED PATH
-files = glob(os.path.join(args.compressed_path, '*.ply.s.npz'))
+files = glob(os.path.join(args.compressed_path, '*.ply.s.bin'))
 filenames = [os.path.split(x[:-6])[-1] for x in files]
 
 MODEL_FILE = os.path.join(args.model_save_folder, 'ae.pkl')
@@ -60,11 +61,14 @@ cdf = pmf_to_cdf(pmf)
 
 start_time = time.time()
 for i in tqdm(range(len(filenames))):
-    loaded = np.load(os.path.join(args.compressed_path, filenames[i] + '.s.npz'))
-    sampled_xyz = torch.Tensor(loaded['sampled'])#.cuda()
+    #loaded = np.load(os.path.join(args.compressed_path, filenames[i] + '.s.npz'))
+    #sampled_xyz = torch.Tensor(loaded['sampled'])#.cuda()
+    sampled_xyz = np.fromfile(os.path.join(args.compressed_path, filenames[i] + '.s.bin'), dtype=np.float16)
+    sampled_xyz = torch.Tensor(sampled_xyz)
+    # print(sampled_xyz.shape)
     #latent = torch.Tensor(loaded['latent'])#.cuda()
     sampled_xyz = sampled_xyz.unsqueeze(0)
-    S = sampled_xyz.shape[1]
+    S = np.fromfile(os.path.join(args.compressed_path, filenames[i] + '.h.bin'), dtype=np.uint16)[0]
 
     with open(os.path.join(args.compressed_path, filenames[i] + '.p.bin'), 'rb') as fin:
         byte_stream = fin.read()

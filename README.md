@@ -72,7 +72,17 @@ The Evaluation process uses the same software `geo_dist` as in [Quach's code](ht
 python ./eval.py ../geo_dist/build/pc_error './data/ModelNet40_pc_8192/**/test/*.ply' './data/ModelNet40_pc_8192_compressed_128_16' './data/ModelNet40_pc_8192_decompressed_128_16' './eval/ModelNet40_128_16.csv'
 ```
 
+## Citation
 
+```
+@incollection{you2021patch,
+  title={Patch-Based Deep Autoencoder for Point Cloud Geometry Compression},
+  author={You, Kang and Gao, Pan},
+  booktitle={ACM Multimedia Asia},
+  pages={1--7},
+  year={2021}
+}
+```
 
 
 

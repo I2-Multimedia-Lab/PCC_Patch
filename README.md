@@ -50,6 +50,8 @@ We use `train_ae.py` to train an autoencoder on ModelNet40 dataset:
 python ./train_ae.py './data/ModelNet40_pc_8192/**/train/*.ply' './model/trained_128_16' --N 8192 --ALPHA 2 --K 128 --d 16
 ```
 
+📢 We uploaded our trained models at: [Google Drive](https://drive.google.com/file/d/1NGVwLz3Hniq1AEYFY7HZpAL0TW0J6gxb/view?usp=sharing)
+
 ## Compression and Decompression
 
 We use `compress.py` and `decompress.py` to perform compress on point clouds using our trained autoencoder. Take the compression of ModelNet40 as an example:

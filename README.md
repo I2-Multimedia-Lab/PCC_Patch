@@ -64,7 +64,7 @@ python ./compress.py './model/trained_128_16' './data/ModelNet40_pc_8192/**/test
 python ./decompress.py './model/trained_128_16' './data/ModelNet40_pc_8192_compressed_128_16' './data/ModelNet40_pc_8192_decompressed_128_16'
 ```
 
-🤗 Tip for TMC13 compression: Since the point clouds we generated are in the coordinate range of [0, 1], which cannot be directly handled by TMC13 software. You can rescale the point cloud into a bigger scale, for example, [0, 64], before input into the TMC13.
+🤗 Tip for TMC13 compression: Since the point clouds we generated are in the coordinate range of [0, 1], which cannot be directly handled by TMC13 software. You can rescale the point cloud into a bigger scale, for example, [0, 64], before input into the TMC13. Example code for baseline compression is uploaded [here](https://drive.google.com/file/d/1D5bTzbjIgcMBvZr1JVGnO-fHBDTZkzII/view?usp=sharing).
 
 ## Evaluation
 

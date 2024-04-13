@@ -64,6 +64,8 @@ python ./compress.py './model/trained_128_16' './data/ModelNet40_pc_8192/**/test
 python ./decompress.py './model/trained_128_16' './data/ModelNet40_pc_8192_compressed_128_16' './data/ModelNet40_pc_8192_decompressed_128_16'
 ```
 
+🤗 Tip for TMC13 compression: Since the point clouds we generated are in the coordinate range of [0, 1], which cannot be directly handled by TMC13 software. You can rescale the point cloud into a bigger scale, for example, [0, 64], before input into the TMC13.
+
 ## Evaluation
 
 The Evaluation process uses the same software `geo_dist` as in [Quach's code](https://github.com/mauriceqch/pcc_geo_cnn). We use `eval.py` to measure reconstruction quality and check the bitrate of the compressed file.
